@@ -1,6 +1,5 @@
 namespace SpriteKind {
     export const cursor = SpriteKind.create()
-    export const Monster = SpriteKind.create()
 }
 scene.onOverlapTile(SpriteKind.cursor, assets.tile`Log`, function (sprite8, location7) {
     if (controller.B.isPressed()) {
@@ -131,6 +130,18 @@ scene.onOverlapTile(SpriteKind.cursor, assets.tile`Diamond ore`, function (sprit
         music.play(music.createSong(assets.song`Break0`), music.PlaybackMode.InBackground)
     }
 })
+function Jump (Slime: Sprite) {
+    if (Slime.x < Steve.x) {
+        Slime.setVelocity(100, -70)
+        pause(250)
+        Slime.setVelocity(0, 100)
+    } else {
+        Slime.setVelocity(-100, -70)
+        pause(250)
+        Slime.setVelocity(0, 100)
+    }
+    pause(randint(1000, 2000))
+}
 scene.onOverlapTile(SpriteKind.cursor, assets.tile`Iron ore`, function (sprite3, location2) {
     if (controller.B.isPressed()) {
         tiles.setWallAt(location2, false)
@@ -157,41 +168,7 @@ scene.onOverlapTile(SpriteKind.cursor, assets.tile`Coal ore`, function (sprite11
     }
 })
 function Respawn_slime () {
-    if (Math.percentChance(50)) {
-        Slime = sprites.create(assets.image`Slime`, SpriteKind.Monster)
-        tiles.placeOnRandomTile(Slime, assets.tile`transparency16`)
-        Slime.setVelocity(0, 100)
-        pause(300)
-        for (let index = 0; index < 5; index++) {
-            if (Slime.x < Steve.x) {
-                Slime.setVelocity(100, -70)
-                pause(250)
-                Slime.setVelocity(0, 100)
-            } else {
-                Slime.setVelocity(-100, -70)
-                pause(250)
-                Slime.setVelocity(0, 100)
-            }
-            pause(randint(1000, 2000))
-        }
-    } else {
-        Slime = sprites.create(assets.image`Slime big`, SpriteKind.Monster)
-        tiles.placeOnRandomTile(Slime, assets.tile`transparency16`)
-        Slime.setVelocity(0, 100)
-        pause(300)
-        for (let index = 0; index < 5; index++) {
-            if (Slime.x < Steve.x) {
-                Slime.setVelocity(100, -70)
-                pause(250)
-                Slime.setVelocity(0, 100)
-            } else {
-                Slime.setVelocity(-100, -70)
-                pause(250)
-                Slime.setVelocity(0, 100)
-            }
-            pause(randint(1000, 2000))
-        }
-    }
+	
 }
 controller.down.onEvent(ControllerButtonEvent.Pressed, function () {
     Down = true
@@ -260,6 +237,9 @@ scene.onOverlapTile(SpriteKind.cursor, assets.tile`transparency16`, function (sp
         music.play(music.createSong(assets.song`Place`), music.PlaybackMode.InBackground)
     }
 })
+function Random_jump (Slime: Sprite) {
+	
+}
 scene.onOverlapTile(SpriteKind.cursor, assets.tile`Dirt`, function (sprite9, location8) {
     if (controller.B.isPressed()) {
         tiles.setWallAt(location8, false)
@@ -287,7 +267,6 @@ function Init_hotbar () {
     Hotbar.setStayInScreen(true)
     Hotbar.setPosition(80, 110)
 }
-let Slime: Sprite = null
 let Inventory: miniMenu.MenuSprite = null
 let Night = false
 let Down = false
